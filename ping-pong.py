@@ -3,11 +3,11 @@ from pygame import *
 back = (200, 255, 255)
 
 init()
-window = display.set_mode((900, 600))
+window = display.set_mode((1000, 700))
 window.fill(back)
 
 font.init()
-font_obj = font.SysFont("Arial", 36)
+font_obj = font.SysFont("Arial", 50)
 
 clock = time.Clock()
 FPS = 60
@@ -32,12 +32,12 @@ class Player(sprite.Sprite):
         if self.controls == "letters":
             if keys[K_w] and self.rect.y > 5:
                 self.rect.y -= self.speed
-            elif keys[K_s] and self.rect.y < 595 and self.rect.bottom < 595:
+            elif keys[K_s] and self.rect.y < 695 and self.rect.bottom < 695:
                 self.rect.y += self.speed
         elif self.controls == "Arrows":
             if keys[K_UP] and self.rect.y > 5:
                 self.rect.y -= self.speed
-            elif keys[K_DOWN] and self.rect.y < 595 and self.rect.bottom < 595:
+            elif keys[K_DOWN] and self.rect.y < 695 and self.rect.bottom < 695:
                 self.rect.y += self.speed
 
 class Ball(sprite.Sprite):
@@ -52,7 +52,7 @@ class Ball(sprite.Sprite):
         self.rect.x += self.speed_x
         self.rect.y += self.speed_y
 
-        if self.rect.top <= 0 or self.rect.bottom >= 600:
+        if self.rect.top <= 0 or self.rect.bottom >= 700:
             self.speed_y = -self.speed_y
 
     def check_collision(self, player_group):
@@ -60,11 +60,11 @@ class Ball(sprite.Sprite):
             self.speed_x = -self.speed_x
 
 players = sprite.Group()
-player1 = Player("player.png", 50, 300, 5, "letters")
-player2 = Player("player_2.png", 850, 300, 5, "Arrows")
+player1 = Player("player.png", 50, 250, 5, "letters")
+player2 = Player("player_2.png", 950, 250, 5, "Arrows")
 players.add(player1, player2)
 
-ball = Ball("ball.png", 450, 300, 5, 5)
+ball = Ball("ball.png", 500, 350, 5, 5)
 
 while game:
     for e in event.get():
@@ -77,17 +77,17 @@ while game:
 
     if ball.rect.right < 0:
         message = font_obj.render("Player 2 wins!", True, (0, 255, 0))
-        window.blit(message, (625, 300))
+        window.blit(message, (600, 300))
         message = font_obj.render("Player 1 loses!", True, (255, 0, 0))
-        window.blit(message, (50, 300))
+        window.blit(message, (70, 300))
         display.update()
         time.delay(2000)
         game = False
-    elif ball.rect.left > 950:
+    elif ball.rect.left > 1050:
         message = font_obj.render("Player 2 loses!", True, (255, 0, 0))
-        window.blit(message, (625, 300))
+        window.blit(message, (600, 300))
         message = font_obj.render("Player 1 wins!", True, (0, 255, 0))
-        window.blit(message, (50, 300))
+        window.blit(message, (70, 300))
         display.update()
         time.delay(2000)
         game = False
